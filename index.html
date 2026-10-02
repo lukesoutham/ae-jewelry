@@ -41,12 +41,7 @@
   .navlinks a.cta:hover{background:var(--navy-dk)}
   @media(max-width:860px){.navlinks a:not(.cta){display:none}}
 
-  /* ---------- hero ---------- */
-  .hero{padding:150px 0 70px}
-  .herogrid{display:grid;grid-template-columns:1.05fr .95fr;gap:58px;align-items:center}
-  .hero h1{font-size:clamp(44px,7vw,82px);font-weight:500}
-  .hero h1 .it{font-style:italic;font-weight:400}
-  .hero .lede{font-size:19px;color:var(--muted);max-width:30em;margin:22px 0 32px}
+  /* ---------- buttons (shared) ---------- */
   .btnrow{display:flex;gap:14px;flex-wrap:wrap}
   .btn{display:inline-flex;align-items:center;gap:9px;font-family:"Hanken Grotesk";font-weight:600;font-size:15px;
        padding:14px 26px;border-radius:40px;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .15s,background .2s,color .2s}
@@ -55,21 +50,56 @@
   .btn-nav:hover{background:var(--navy-dk)}
   .btn-ghost{background:transparent;color:var(--navy);border-color:var(--navy)}
   .btn-ghost:hover{background:var(--navy);color:#fff}
-  .heroimg{position:relative}
-  .heroimg .ph{position:relative;border-radius:260px 260px 18px 18px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:4/5;background:var(--cream-dk)}
-  .heroimg .ph img{width:100%;height:100%;object-fit:cover}
-  .heroimg .cap{position:absolute;left:-14px;bottom:26px;background:var(--paper);border:1px solid var(--line);border-radius:14px;
-       padding:12px 16px;box-shadow:var(--shadow);max-width:210px}
-  .heroimg .cap b{font-family:"Fraunces";font-weight:600;font-size:15px;color:var(--navy);display:block}
-  .heroimg .cap span{font-size:12.5px;color:var(--muted)}
-  .trust{display:flex;gap:34px;flex-wrap:wrap;margin-top:54px;padding-top:30px;border-top:1px solid var(--line)}
-  .trust div{min-width:120px}
+
+  /* ---------- cinematic hero ---------- */
+  .hero{position:relative;min-height:94vh;display:flex;align-items:center;overflow:hidden;background:var(--cream-dk)}
+  .slides{position:absolute;inset:0;z-index:0}
+  .slide{position:absolute;inset:0;background-size:cover;background-position:center 38%;opacity:0;
+         animation:kb 21s cubic-bezier(.4,0,.2,1) infinite;will-change:opacity,transform}
+  .slide.s1{animation-delay:0s}
+  .slide.s2{animation-delay:7s}
+  .slide.s3{animation-delay:14s}
+  @keyframes kb{
+    0%{opacity:0;transform:scale(1.03)}
+    4%{opacity:1}
+    29%{opacity:1;transform:scale(1.11)}
+    34%{opacity:0;transform:scale(1.12)}
+    100%{opacity:0}
+  }
+  .scrim{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(104deg, rgba(236,229,212,.97) 0%, rgba(236,229,212,.9) 24%, rgba(236,229,212,.5) 46%, rgba(236,229,212,.05) 68%, rgba(43,52,80,.1) 100%)}
+  .sheen{position:absolute;inset:-40% -20%;z-index:2;pointer-events:none;mix-blend-mode:screen;
+    background:linear-gradient(104deg,transparent 42%,rgba(255,250,235,.55) 50%,transparent 58%);
+    transform:translateX(-120%);animation:sheen 11s ease-in-out infinite}
+  @keyframes sheen{0%,68%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+  .herocontent{position:relative;z-index:3;width:100%;padding-top:70px}
+  .herocontent .inner{max-width:580px}
+  .hero h1{font-size:clamp(46px,7.4vw,88px);font-weight:500;color:var(--navy-dk)}
+  .hero h1 .it{font-style:italic;font-weight:400}
+  .hero .lede{font-size:19px;color:#4a4e5c;max-width:30em;margin:22px 0 32px}
+  .reveal{opacity:0;transform:translateY(18px);animation:up 1s cubic-bezier(.2,.7,.2,1) forwards}
+  .r1{animation-delay:.25s}.r2{animation-delay:.45s}.r3{animation-delay:.72s}.r4{animation-delay:.95s}
+  @keyframes up{to{opacity:1;transform:none}}
+  .scrollcue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;opacity:.55;
+    animation:bob 2.2s ease-in-out infinite}
+  .scrollcue svg{width:24px;height:24px;stroke:var(--navy)}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
+  /* trust strip under hero */
+  .trustbar{background:var(--paper);border-bottom:1px solid var(--line)}
+  .trust{display:flex;gap:34px;flex-wrap:wrap;justify-content:center;padding:26px 0}
+  .trust div{min-width:150px;text-align:center}
   .trust b{font-family:"Fraunces";font-weight:600;font-size:15px;color:var(--navy);display:block}
   .trust span{font-size:13.5px;color:var(--muted)}
   @media(max-width:860px){
-    .hero{padding:120px 0 40px}
-    .herogrid{grid-template-columns:1fr;gap:38px}
-    .heroimg{max-width:420px;margin:0 auto}
+    .hero{min-height:90vh}
+    .scrim{background:linear-gradient(170deg, rgba(236,229,212,.95) 0%, rgba(236,229,212,.82) 42%, rgba(236,229,212,.55) 70%, rgba(43,52,80,.14) 100%)}
+    .herocontent .inner{max-width:100%}
+    .trust{gap:22px 30px;padding:22px 0}
+    .trust div{min-width:40%}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .slide,.sheen,.reveal,.scrollcue{animation:none}
+    .slide.s1{opacity:1}.reveal{opacity:1;transform:none}
   }
 
   /* ---------- how it works ---------- */
@@ -98,14 +128,16 @@
   @media(max-width:760px){.bonds{grid-template-columns:1fr 1fr;gap:14px}}
 
   /* ---------- gallery ---------- */
-  .gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:14px;margin-top:50px}
-  .gal .tile{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:1;background:var(--cream-dk);border:1px solid var(--line)}
-  .gal .tile.tall{aspect-ratio:1/1.4;grid-row:span 1}
-  .gal .tile img{width:100%;height:100%;object-fit:cover}
-  .gal .slot{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--navy-lt);text-align:center;padding:18px;gap:10px}
-  .gal .slot svg{width:34px;height:34px;opacity:.6}
-  .gal .slot span{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase}
-  @media(max-width:760px){.gal{grid-template-columns:1fr 1fr}}
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,210px);gap:14px;margin-top:50px;
+       grid-template-areas:"a a b c" "a a d e"}
+  .gal .tile{position:relative;border-radius:16px;overflow:hidden;background:var(--cream-dk);border:1px solid var(--line)}
+  .gal .tile img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .gal .tile:hover img{transform:scale(1.06)}
+  .gal .a{grid-area:a}.gal .b{grid-area:b}.gal .c{grid-area:c}.gal .d{grid-area:d}.gal .e{grid-area:e}
+  @media(max-width:760px){
+    .gal{grid-template-columns:1fr 1fr;grid-template-rows:240px repeat(2,150px);
+         grid-template-areas:"a a" "b c" "d e"}
+  }
 
   /* ---------- book / cta ---------- */
   .bookgrid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
@@ -161,27 +193,37 @@
 
 <!-- HERO -->
 <header class="hero">
-  <div class="wrap herogrid">
-    <div class="herotext">
-      <div class="ey">Custom-fit permanent jewelry · Utah County</div>
-      <h1>No clasp.<br><span class="it">No end.</span></h1>
-      <p class="lede">A dainty chain, measured to you and gently welded closed — no clasp to lose, nothing to take off. The piece you put on today for the people and moments you never want to forget.</p>
-      <div class="btnrow">
+  <div class="slides" aria-hidden="true">
+    <div class="slide s1" style="background-image:url('assets/chain-gold.jpg')"></div>
+    <div class="slide s2" style="background-image:url('assets/wrist-duo.jpg')"></div>
+    <div class="slide s3" style="background-image:url('assets/welding-hands.jpg')"></div>
+  </div>
+  <div class="scrim" aria-hidden="true"></div>
+  <div class="sheen" aria-hidden="true"></div>
+  <div class="wrap herocontent">
+    <div class="inner">
+      <div class="ey reveal r1">Custom-fit permanent jewelry · Utah County</div>
+      <h1 class="reveal r2">No clasp.<br><span class="it">No end.</span></h1>
+      <p class="lede reveal r3">A dainty chain, measured to you and gently welded closed — no clasp to lose, nothing to take off. The piece you put on today for the people and moments you never want to forget.</p>
+      <div class="btnrow reveal r4">
         <a href="#book" class="btn btn-nav">Book your appointment</a>
         <a href="#how" class="btn btn-ghost">How it works</a>
       </div>
-      <div class="trust">
-        <div><b>Welded, not clasped</b><span>A seamless, custom fit</span></div>
-        <div><b>Solid &amp; filled golds + silver</b><span>Chains for every skin tone</span></div>
-        <div><b>Pop-ups &amp; private parties</b><span>We come to your event</span></div>
-      </div>
-    </div>
-    <div class="heroimg">
-      <div class="ph"><img src="assets/ig-baby-bracelet.jpg" alt="A delicate silver heart-link permanent bracelet on a little one's wrist"></div>
-      <div class="cap"><b>For the littlest wrists</b><span>Tiny, safe, clasp-free links</span></div>
     </div>
   </div>
+  <a href="#how" class="scrollcue" aria-label="Scroll down">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+  </a>
 </header>
+
+<!-- TRUST STRIP -->
+<div class="trustbar">
+  <div class="wrap trust">
+    <div><b>Welded, not clasped</b><span>A seamless, custom fit</span></div>
+    <div><b>Solid &amp; filled golds + silver</b><span>Chains for every skin tone</span></div>
+    <div><b>Pop-ups &amp; private parties</b><span>We come to your event</span></div>
+  </div>
+</div>
 
 <!-- HOW IT WORKS -->
 <section class="band paper" id="how">
@@ -237,14 +279,11 @@
       <p>A look at recent pieces. Follow along on Instagram for every new chain and pop-up.</p>
     </div>
     <div class="gal">
-      <div class="tile"><img src="assets/ig-baby-bracelet.jpg" alt="Silver heart-link permanent bracelet on a child's wrist"></div>
-      <div class="tile"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span>Instagram photo</span></div></div>
-      <div class="tile"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span>Instagram photo</span></div></div>
-      <div class="tile"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span>Instagram photo</span></div></div>
-      <div class="tile"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span>Instagram photo</span></div></div>
-      <div class="tile"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span>Instagram photo</span></div></div>
-      <div class="tile"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span>Instagram photo</span></div></div>
-      <div class="tile"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span>Instagram photo</span></div></div>
+      <div class="tile a"><img src="assets/wrist-duo.jpg" alt="Two dainty gold permanent bracelets welded on a wrist"></div>
+      <div class="tile b"><img src="assets/chain-gold.jpg" alt="Close-up of a textured gold permanent chain"></div>
+      <div class="tile c"><img src="assets/welding-hands.jpg" alt="A permanent bracelet being measured and welded to fit"></div>
+      <div class="tile d"><img src="assets/welding-close.jpg" alt="The quick weld that closes a permanent bracelet"></div>
+      <div class="tile e"><img src="assets/ig-baby-bracelet.jpg" alt="A tiny silver heart-link bracelet on a child's wrist"></div>
     </div>
   </div>
 </section>
