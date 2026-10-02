@@ -57,13 +57,13 @@
   .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;
          animation:kb 20s ease-in-out infinite;will-change:opacity,transform}
   .slide.s1{animation-delay:0s}
-  .slide.s2{animation-delay:10s}
-  /* super-slow, slight zoom; two scenes crossfade at the 10s mark */
+  .slide.s2{animation-delay:9.2s}
+  /* super-slow, slight zoom; two scenes overlap-crossfade (no cream dip) */
   @keyframes kb{
     0%{opacity:0;transform:scale(1.0)}
-    6%{opacity:1}
-    44%{opacity:1}
-    50%{opacity:0;transform:scale(1.065)}
+    5%{opacity:1}
+    47%{opacity:1}
+    55%{opacity:0;transform:scale(1.065)}
     100%{opacity:0;transform:scale(1.065)}
   }
   .scrim{position:absolute;inset:0;z-index:1;
